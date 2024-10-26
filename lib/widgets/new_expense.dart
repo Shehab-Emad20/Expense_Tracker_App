@@ -40,7 +40,11 @@ class _NewExpenseState extends State<NewExpense> {
           ),
           Row(
             children: [
-              ElevatedButton(onPressed: () {}, child: const Text('Cancel')),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Cancel')),
               ElevatedButton(
                   onPressed: () {}, child: const Text('Save Expense'))
             ],
