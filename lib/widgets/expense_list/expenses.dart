@@ -22,6 +22,12 @@ class _ExpensesState extends State<Expenses> {
         date: DateTime.now(),
         category: Category.leisure),
   ];
+
+  void opennAddExpenseOverlay() {
+    showModalBottomSheet(
+        context: context, builder: (ctx) => const Text('Modal bottom sheet'));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
