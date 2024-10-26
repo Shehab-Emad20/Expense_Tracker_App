@@ -1,3 +1,4 @@
+import 'package:expense_tracker/model/expenses.dart' as expense;
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -14,15 +15,18 @@ class _NewExpenseState extends State<NewExpense> {
   final titleController = TextEditingController();
   final amountController = TextEditingController();
   DateTime? selectedDate;
+  expense.Category selectedCategory = expense.Category.leisure;
+
   void presentDatePicker() async {
     final now = DateTime.now();
     final firstDate = DateTime(now.year - 1, now.month, now.day);
 
     final pickedDate = await showDatePicker(
-        context: context,
-        initialDate: now,
-        firstDate: firstDate,
-        lastDate: now);
+      context: context,
+      initialDate: now,
+      firstDate: firstDate,
+      lastDate: now,
+    );
     setState(() {
       selectedDate = pickedDate;
     });
@@ -72,24 +76,51 @@ class _NewExpenseState extends State<NewExpense> {
                         ? 'No date selected'
                         : formatter.format(selectedDate!)),
                     IconButton(
-                        onPressed: presentDatePicker,
-                        icon: const Icon(Icons.calendar_month))
+                      onPressed: presentDatePicker,
+                      icon: const Icon(Icons.calendar_month),
+                    ),
                   ],
                 ),
               )
             ],
           ),
+          const SizedBox(height: 16),
           Row(
             children: [
+              DropdownButton<expense.Category>(
+                value: selectedCategory,
+                items: expense.Category.values
+                    .map(
+                      (category) => DropdownMenuItem(
+                        value: category,
+                        child: Text(
+                          category.name.toUpperCase(),
+                        ),
+                      ),
+                    )
+                    .toList(),
+                onChanged: (expense.Category? value) {
+                  if (value == null) return;
+                  setState(() {
+                    selectedCategory = value;
+                  });
+                },
+              ),
+              const Spacer(),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Cancel'),
+              ),
               ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text('Cancel')),
-              ElevatedButton(
-                  onPressed: () {}, child: const Text('Save Expense'))
+                onPressed: () {
+                  // Save expense logic goes here
+                },
+                child: const Text('Save Expense'),
+              ),
             ],
-          )
+          ),
         ],
       ),
     );
