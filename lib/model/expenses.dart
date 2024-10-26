@@ -4,13 +4,13 @@ const uuid = Uuid();
 
 enum Category { food, travel, leisure, work }
 
-class Expenses {
+class Expense {
   final String title, id;
   final double amount;
   final DateTime date;
   final Category category;
 
-  Expenses({
+  Expense({
     required this.title,
     required this.amount,
     required this.date,
