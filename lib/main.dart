@@ -30,9 +30,9 @@ class ExpensesApp extends StatelessWidget {
           ),
           textTheme: ThemeData().textTheme.copyWith(
               titleLarge: TextStyle(
-                  fontWeight: FontWeight.normal,
+                  fontWeight: FontWeight.bold,
                   color: kColorScheme.secondaryContainer,
-                  fontSize: 14)),
+                  fontSize: 16)),
         ),
         debugShowCheckedModeBanner: false,
         home: const Expenses());
