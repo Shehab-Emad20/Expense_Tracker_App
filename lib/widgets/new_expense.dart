@@ -5,7 +5,10 @@ import 'package:intl/intl.dart';
 final formatter = DateFormat.yMd();
 
 class NewExpense extends StatefulWidget {
-  const NewExpense({super.key});
+  const NewExpense({super.key, required this.onAddExpense});
+
+  // Change type to match `Expense`
+  final void Function(expense.Expense expense) onAddExpense;
 
   @override
   State<NewExpense> createState() => _NewExpenseState();
@@ -32,9 +35,10 @@ class _NewExpenseState extends State<NewExpense> {
     });
   }
 
-  void submitExpenseDataa() {
-    final enterAmount = double.tryParse(amountController.text);
-    final amountIsInvalid = enterAmount == null || enterAmount <= 0;
+  void submitExpenseData() {
+    final enteredAmount = double.tryParse(amountController.text);
+    final amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
+
     if (titleController.text.trim().isEmpty ||
         amountIsInvalid ||
         selectedDate == null) {
@@ -53,6 +57,13 @@ class _NewExpenseState extends State<NewExpense> {
               ));
       return;
     }
+
+    widget.onAddExpense(expense.Expense(
+      title: titleController.text,
+      amount: enteredAmount,
+      date: selectedDate!,
+      category: selectedCategory,
+    ));
   }
 
   @override
@@ -87,9 +98,7 @@ class _NewExpenseState extends State<NewExpense> {
                   ),
                 ),
               ),
-              const SizedBox(
-                width: 16,
-              ),
+              const SizedBox(width: 16),
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -104,7 +113,7 @@ class _NewExpenseState extends State<NewExpense> {
                     ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
           const SizedBox(height: 16),
@@ -137,7 +146,7 @@ class _NewExpenseState extends State<NewExpense> {
                 child: const Text('Cancel'),
               ),
               ElevatedButton(
-                onPressed: submitExpenseDataa,
+                onPressed: submitExpenseData,
                 child: const Text('Save Expense'),
               ),
             ],

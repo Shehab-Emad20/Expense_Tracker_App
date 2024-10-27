@@ -11,7 +11,7 @@ class Expenses extends StatefulWidget {
 }
 
 class _ExpensesState extends State<Expenses> {
-  final List<Expense> registerdExpanses = [
+  final List<Expense> registeredExpenses = [
     Expense(
         title: 'Flutter Course',
         amount: 19.99,
@@ -24,9 +24,16 @@ class _ExpensesState extends State<Expenses> {
         category: Category.leisure),
   ];
 
-  void opennAddExpenseOverlay() {
+  void openAddExpenseOverlay() {
     showModalBottomSheet(
-        context: context, builder: (ctx) => const NewExpense());
+        context: context,
+        builder: (ctx) => NewExpense(onAddExpense: addExpense));
+  }
+
+  void addExpense(Expense expense) {
+    setState(() {
+      registeredExpenses.add(expense);
+    });
   }
 
   @override
@@ -36,11 +43,9 @@ class _ExpensesState extends State<Expenses> {
         title: const Text('Expense Tracker'),
         actions: [
           IconButton(
-            onPressed: () {
-              return opennAddExpenseOverlay();
-            },
+            onPressed: openAddExpenseOverlay,
             icon: const Icon(Icons.add),
-          )
+          ),
         ],
       ),
       body: Column(
@@ -48,9 +53,9 @@ class _ExpensesState extends State<Expenses> {
           const Text('The Chart'),
           Expanded(
             child: ExpenseList(
-              expenses: registerdExpanses,
+              expenses: registeredExpenses,
             ),
-          )
+          ),
         ],
       ),
     );
