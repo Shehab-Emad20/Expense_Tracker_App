@@ -9,9 +9,9 @@ var kColorScheme = ColorScheme.fromSeed(
   seedColor: const Color.fromARGB(255, 96, 59, 181),
 );
 
-var kDrakColorScheme = ColorScheme.fromSeed(
+var kDarkColorScheme = ColorScheme.fromSeed(
   seedColor: const Color.fromARGB(255, 5, 99, 125),
-  brightness: Brightness.dark, // Switch to dark mode.
+  brightness: Brightness.dark,
 );
 
 class ExpensesApp extends StatelessWidget {
@@ -20,24 +20,24 @@ class ExpensesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      darkTheme: ThemeData.dark().copyWith(colorScheme: kDrakColorScheme),
+      darkTheme: ThemeData.dark().copyWith(
+        colorScheme: kDarkColorScheme,
+      ),
       theme: ThemeData(
         colorScheme: kColorScheme,
-        // useMaterial3: true, // Enables Material 3 for modern UI design.
+        // useMaterial3: true, // Uncomment to enable Material 3 for modern UI design.
         appBarTheme: AppBarTheme(
           backgroundColor: kColorScheme.primary,
           foregroundColor: kColorScheme.onPrimary,
         ),
         cardTheme: CardTheme(
-          color: kDrakColorScheme.secondaryContainer,
-          margin: EdgeInsets.symmetric(
-              horizontal:
-                  Theme.of(context).cardTheme.margin?.horizontal ?? 8.0),
+          color: kColorScheme.secondaryContainer,
+          margin: const EdgeInsets.symmetric(horizontal: 8.0),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            backgroundColor: kDrakColorScheme.primaryContainer,
-            foregroundColor: kDrakColorScheme.onPrimaryContainer,
+            backgroundColor: kColorScheme.primaryContainer,
+            foregroundColor: kColorScheme.onPrimaryContainer,
           ),
         ),
         textTheme: ThemeData().textTheme.copyWith(
