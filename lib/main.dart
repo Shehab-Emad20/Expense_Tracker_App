@@ -15,11 +15,25 @@ class ExpensesApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: ThemeData(
-            colorScheme: kColorScheme,
-            appBarTheme: AppBarTheme(
-              backgroundColor: kColorScheme.onPrimaryContainer,
-              foregroundColor: kColorScheme.primaryContainer,
-            )),
+          colorScheme: kColorScheme,
+          appBarTheme: AppBarTheme(
+            backgroundColor: kColorScheme.onPrimaryContainer,
+            foregroundColor: kColorScheme.primaryContainer,
+          ),
+          cardTheme: CardTheme(
+            color: kColorScheme.secondaryContainer,
+            margin: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+                backgroundColor: kColorScheme.primaryContainer),
+          ),
+          textTheme: ThemeData().textTheme.copyWith(
+              titleLarge: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  color: kColorScheme.secondaryContainer,
+                  fontSize: 14)),
+        ),
         debugShowCheckedModeBanner: false,
         home: const Expenses());
   }
